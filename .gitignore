@@ -1,0 +1,44 @@
+# Fichiers Python générés
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info
+dist/
+build/
+sdist/
+
+# Fichiers spécifiques à l'environnement de développement
+.env
+venv/
+env/
+envP/
+ENV/
+*.log
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Fichiers Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb.bak
+
+# Fichiers spécifiques aux IDE JetBrains
+.idea/
+*.iml
+modules.xml
+misc.xml
+profiles_settings.xml
+Project_Default.xml
+
+# Fichiers de données
+# data/
+# *.csv
+# *.parquet
+# *.json
+# ...
+
+# Fichiers temporaires et divers
+*.tmp
+*.DS_Store
+Thumbs.db
