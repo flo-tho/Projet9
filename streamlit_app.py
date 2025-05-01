@@ -150,12 +150,12 @@ selected_models = st.multiselect(
 
 # Couleurs fixes pour chaque modèle (8 couleurs daltonisme-friendly)
 MODEL_COLORS = {
-    "LGBMxProphet": "#E69F00",   # orange
+    "LGBMxProphet": "#D55E00",        # rouge brique"
     "LGBMxProphet avc feat. exogenes": "#F0E442",  # jaune
     "Exponential Smoothing": "#56B4E9",      # bleu clair
     "Holt-Winters": "#009E73",           # vert foncé
     "Naive": "#0072B2",          # bleu foncé
-    # "Prophet": "#D55E00",        # rouge brique
+    # "Prophet": "#E69F00",   # orange
     "Naïf": "#CC79A7",         # rose
 }
 
@@ -205,26 +205,38 @@ results = []
 
 for model_name in selected_models:
     model_preds = preds_dict[model_name]
-    store_preds = model_preds[model_preds["Store"] == selected_store]
-    merged = store_preds.merge(store_data, on="date", suffixes=("_pred", "_actual"))
+    store_preds = model_preds[
+        (model_preds["Store"] == selected_store) & (model_preds["date"] >= start_date)
+    ]
+
+    # Données réelles filtrées pareillement
+    store_actuals = df[
+        (df["Store"] == selected_store) & (df["date"] >= start_date)
+    ][["date", "Sales"]].rename(columns={"Sales": "Sales_actual"})
+
+    # Merge sur la date
+    merged = store_preds.merge(store_actuals, on="date", how="inner")
 
     y_true = merged["Sales_actual"]
     y_pred = merged["Sales_forecast"]
 
-    mae = mean_absolute_error(y_true, y_pred)
-    rmse = mean_squared_error(y_true, y_pred, squared=False)
-    rmpse = np.sqrt(np.mean(np.square((y_true - y_pred) / (y_true + 1e-8)))) * 100
+    if not y_true.empty and not y_pred.empty:
+        mae = mean_absolute_error(y_true, y_pred)
+        rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+        # rmpse = np.sqrt(np.mean(np.square((y_true - y_pred) / (y_true + 1e-8)))) * 100
 
-    results.append({
-        "Modèle": model_name,
-        "MAE": round(mae, 2),
-        "RMSE": round(rmse, 2),
-        "RMPSE (%)": round(rmpse, 2),
-    })
+        results.append({
+            "Modèle": model_name,
+            "MAE": round(mae, 2),
+            "RMSE": round(rmse, 2),
+            # "RMPSE (%)": round(rmpse, 2),
+        })
 
-score_df = pd.DataFrame(results).sort_values("RMSE")
-st.dataframe(score_df)
-
+if results:
+    score_df = pd.DataFrame(results).sort_values("RMSE")
+    st.dataframe(score_df, use_container_width=False)
+else:
+    st.warning("Pas de données disponibles pour calculer les métriques sur cette période.")
 
 
 # -------------------------------
