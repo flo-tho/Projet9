@@ -4,22 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d4c8aee6-ec74-4d68-b9c2-6c6426412405" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Projet 9.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/P9_AnalyseExploratoire.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prévisions/etsformer_predictions.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prévisions/holt_winters_predictions.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prévisions/lgbm_exog_preds.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prévisions/lgbm_preds.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prévisions/naive_predictions.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prévisions/ses_predictions.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/streamlit_app.py" afterDir="false" />
+    <list default="true" id="d4c8aee6-ec74-4d68-b9c2-6c6426412405" name="Changes" comment="Notebooks et prédictions MAJ">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/P9_Modelisation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/P9_Modelisation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prévisions/etsformer_predictions.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prévisions/holt_winters_predictions.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prévisions/lgbm_exog_preds.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prévisions/lgbm_preds.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prévisions/naive_predictions.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prévisions/ses_predictions.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/streamlit_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/streamlit_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +36,12 @@
     &quot;assignee&quot;: &quot;flo-tho&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/salesforce/ETSformer.git&quot;,
-    &quot;accountId&quot;: &quot;54a6d111-dcd6-4fe8-b736-835f6d460285&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/flo-tho/Projet9",
+    "accountId": "54a6d111-dcd6-4fe8-b736-835f6d460285"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -59,7 +53,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "Python.exp_main.executor": "Run",
+    "Python.streamlit_app.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/flore/Openclassrooms/Projet 9",
@@ -82,6 +78,19 @@
       <option name="presentableId" value="Default" />
       <updated>1743681477399</updated>
     </task>
+    <task id="LOCAL-00001" summary="Notebooks et prédictions MAJ">
+      <option name="closed" value="true" />
+      <created>1746029006804</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746029006804</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Notebooks et prédictions MAJ" />
+    <option name="LAST_COMMIT_MESSAGE" value="Notebooks et prédictions MAJ" />
   </component>
 </project>

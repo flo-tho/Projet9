@@ -10,15 +10,21 @@ import os
 
 @st.cache_data
 def load_data():
-    data = pd.read_csv("data/data.csv", parse_dates=["Date"])
+
+    base_url = "https://raw.githubusercontent.com/flo-tho/Projet9/previsions/"
+    actuals = pd.read_csv(base_url + "df_simple_selected_stores.csv", parse_dates=["date"])
     preds = {
-        "Naïf": pd.read_csv("data/preds_naive.csv", parse_dates=["Date"]),
-        "Exponential Smoothing": pd.read_csv("data/preds_expsmoothing.csv", parse_dates=["Date"]),
-        "Holt-Winters": pd.read_csv("data/preds_holtwinters.csv", parse_dates=["Date"]),
-        "ETSformer": pd.read_csv("data/preds_etsformer.csv", parse_dates=["Date"]),
-        "LGBMxProphet": pd.read_csv("data/preds_lgbmxprophet.csv", parse_dates=["Date"]),
+        "Naïf": pd.read_csv(base_url + "naive_predictions.csv", parse_dates=["date"]),
+        "Exponential Smoothing": pd.read_csv(base_url + "ses_predictions.csv", parse_dates=["date"]),
+        "Holt-Winters": pd.read_csv(base_url + "holt_winters_predictions.csv", parse_dates=["date"]),
+        "ETSformer": pd.read_csv(base_url + "etsformer_predictions.csv", parse_dates=["date"]),
+        "LGBMxProphet": pd.read_csv(base_url + "lgbm_preds.csv", parse_dates=["date"]),
+        "LGBMxProphet avc feat. exogenes": pd.read_csv(base_url + "lgbm_exog_preds.csv", parse_dates=["date"]),
     }
-    return data, preds
+    return actuals, preds
+
+
+
 
 df, preds_dict = load_data()
 
@@ -65,7 +71,7 @@ selected_store = st.selectbox("Sélectionnez un magasin :", store_list)
 
 store_data = df[df["Store"] == selected_store]
 
-st.line_chart(store_data.set_index("Date")["Sales"], height=300)
+st.line_chart(store_data.set_index("date")["Sales"], height=300)
 
 # -------------------------------
 # Comparaison des modèles
