@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import numpy as np
 import os
@@ -27,6 +29,7 @@ def load_data():
 
     base_url = "https://raw.githubusercontent.com/flo-tho/Projet9/master/previsions/"
     actuals = pd.read_csv(base_url + "df_simple_selected_stores.csv", parse_dates=["date"])
+    df_exog = pd.read_csv(base_url + "df_exog_selected_stores.csv", parse_dates=["date"])
     preds = {
         "Naïf": pd.read_csv(base_url + "naive_predictions.csv", parse_dates=["date"]),
         "Exponential Smoothing": pd.read_csv(base_url + "ses_predictions.csv", parse_dates=["date"]),
@@ -35,12 +38,12 @@ def load_data():
         "LGBMxProphet": pd.read_csv(base_url + "lgbm_preds.csv", parse_dates=["date"]),
         "LGBMxProphet avc feat. exogenes": pd.read_csv(base_url + "lgbm_exog_preds.csv", parse_dates=["date"]),
     }
-    return actuals, preds
+    return actuals, df_exog, preds
 
 
 
 
-df, preds_dict = load_data()
+df, df_exog, preds_dict = load_data()
 
 
 
@@ -75,6 +78,9 @@ with col2:
 
         st.dataframe(sales_analysis)
 
+# -------------------------------
+# Graphique Distribution des ventes par Store
+# -------------------------------
 
 st.subheader("Distribution des ventes par Store")
 
@@ -92,13 +98,52 @@ fig_box.update_layout(xaxis_tickangle=45)
 st.plotly_chart(fig_box, use_container_width=True)
 
 # -------------------------------
-# Sélection de la période d'analyse
+# Graph corrélation entre variables numériques
 # -------------------------------
 
-st.header("Période d'analyse")
+st.subheader("Corrélation entre variables numériques")
 
-min_date = df["date"].min()
-max_date = df["date"].max()
+# Liste des colonnes numériques
+num_cols = df_exog.select_dtypes(include='number').columns.tolist()
+
+# Sélecteur de colonnes
+selected_cols = st.multiselect(
+    "Sélectionnez les variables à corréler :",
+    options=num_cols,
+    default=["Sales", "Promo", "Promo2", "CompetitionDistance"]
+)
+
+# Affichage si au moins 2 variables sont sélectionnées
+if len(selected_cols) >= 2:
+    corr_matrix = df_exog[selected_cols].corr().round(2)
+    fig_corr = px.imshow(
+        corr_matrix,
+        text_auto=True,
+        color_continuous_scale='RdBu_r',
+        zmin=-1, zmax=1,
+        labels=dict(color="Corrélation"),
+        aspect="auto"
+    )
+    fig_corr.update_layout(
+        width=700,
+        height=600,
+        margin=dict(l=50, r=50, t=50, b=50)
+    )
+    st.plotly_chart(fig_corr, use_container_width=False)
+else:
+    st.warning("Veuillez sélectionner au moins deux variables.")
+
+
+# -------------------------------
+# Graph corrélation entre Sales & Promo
+# -------------------------------
+
+# Sélection de la période d'analyse
+
+st.markdown("### Période d'analyse")
+
+min_date = df_exog["date"].min()
+max_date = df_exog["date"].max()
 
 # Options proposées
 start_date_options = {
@@ -106,40 +151,67 @@ start_date_options = {
     "2014-01-01": pd.Timestamp("2014-01-01"),
     "2015-01-01": pd.Timestamp("2015-01-01"),
 }
-
 selected_start_label = st.selectbox("Date de début :", list(start_date_options.keys()))
 start_date = start_date_options[selected_start_label]
 
-# -------------------------------
+
 # Sélection du magasin
+
+st.markdown("### Sélection du magasin")
+selected_store = st.selectbox("Sélectionnez un magasin :", sorted(df_exog["Store"].unique()))
+
+# Filtrage des données selon le magasin et la date de début
+data_store = df_exog[(df_exog["Store"] == selected_store) & (df_exog["date"] >= start_date)]
+
 # -------------------------------
+# Affichage du graphique combiné
+# -------------------------------
+st.header("Corrélation ventes vs promo")
+fig = go.Figure()
 
-st.header("Sélection du magasin")
-store_list = sorted(df["Store"].unique())
-selected_store = st.selectbox("Sélectionnez un magasin :", store_list)
+# Courbe des ventes (axe principal)
+fig.add_trace(go.Scatter(
+    x=data_store["date"],
+    y=data_store["Sales"],
+    mode="lines+markers",
+    name="Ventes",
+    yaxis="y1"
+))
 
-# Filtrage par magasin et date
-store_data = df[(df["Store"] == selected_store) & (df["date"] >= start_date)]
+# Histogramme des promotions (axe secondaire)
+fig.add_trace(go.Bar(
+    x=data_store["date"],
+    y=data_store["Promo"],
+    name="Promo",
+    yaxis="y2",
+    opacity=0.4,
+    marker_color='orange'
+))
 
-fig_sales = go.Figure(data=[
-    go.Scatter(x=store_data["date"], y=store_data["Sales"], mode='lines', name='Ventes')
-])
-
-fig_sales.update_layout(
-    title=f"Évolution des ventes pour le magasin {selected_store}",
-    xaxis_title="Date",
-    yaxis_title="Ventes (Actuals)",
-    height=500,
-    showlegend=True
+# Configuration des axes
+fig.update_layout(
+    title=f"Ventes et promotions - Magasin {selected_store}",
+    xaxis=dict(title="Date"),
+    yaxis=dict(title="Ventes", side="left"),
+    yaxis2=dict(
+        title="Promo",
+        overlaying="y",
+        side="right",
+        range=[0, 1.2],
+        showgrid=False
+    ),
+    barmode='overlay',
+    legend=dict(x=0.01, y=0.99),
+    height=500
 )
 
-st.plotly_chart(fig_sales, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True)
 
 # -------------------------------
 # Comparaison des modèles
 # -------------------------------
 
-st.header("Comparaison des modèles de prévision")
+st.header("Comparaison des modèles de prévision vs actuals")
 available_models = list(preds_dict.keys())
 
 selected_models = st.multiselect(
@@ -178,8 +250,8 @@ for model_name in selected_models:
 
 # Courbe réelle
 fig2.add_trace(go.Scatter(
-    x=store_data["date"],
-    y=store_data["Sales"],
+    x=data_store["date"],
+    y=data_store["Sales"],
     mode="lines",
     name="Actuals",
     line=dict(color="black", dash="dot")
@@ -194,49 +266,6 @@ fig2.update_layout(
 )
 
 st.plotly_chart(fig2, use_container_width=True)
-
-# -------------------------------
-# Calcul des scores pour le magasin sélectionné
-# -------------------------------
-
-st.subheader("Scores d’erreur pour chaque modèle")
-
-results = []
-
-for model_name in selected_models:
-    model_preds = preds_dict[model_name]
-    store_preds = model_preds[
-        (model_preds["Store"] == selected_store) & (model_preds["date"] >= start_date)
-    ]
-
-    # Données réelles filtrées pareillement
-    store_actuals = df[
-        (df["Store"] == selected_store) & (df["date"] >= start_date)
-    ][["date", "Sales"]].rename(columns={"Sales": "Sales_actual"})
-
-    # Merge sur la date
-    merged = store_preds.merge(store_actuals, on="date", how="inner")
-
-    y_true = merged["Sales_actual"]
-    y_pred = merged["Sales_forecast"]
-
-    if not y_true.empty and not y_pred.empty:
-        mae = mean_absolute_error(y_true, y_pred)
-        rmse = np.sqrt(mean_squared_error(y_true, y_pred))
-        # rmpse = np.sqrt(np.mean(np.square((y_true - y_pred) / (y_true + 1e-8)))) * 100
-
-        results.append({
-            "Modèle": model_name,
-            "MAE": round(mae, 2),
-            "RMSE": round(rmse, 2),
-            # "RMPSE (%)": round(rmpse, 2),
-        })
-
-if results:
-    score_df = pd.DataFrame(results).sort_values("RMSE")
-    st.dataframe(score_df, use_container_width=False)
-else:
-    st.warning("Pas de données disponibles pour calculer les métriques sur cette période.")
 
 
 # -------------------------------

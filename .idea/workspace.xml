@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d4c8aee6-ec74-4d68-b9c2-6c6426412405" name="Changes" comment="MAJ des prédictions">
+    <list default="true" id="d4c8aee6-ec74-4d68-b9c2-6c6426412405" name="Changes" comment="MAJ scripts streamlit + data exogenes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/P9_Modelisation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/P9_Modelisation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/streamlit_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/streamlit_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,13 +96,22 @@
       <option name="project" value="LOCAL" />
       <updated>1746092672229</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="MAJ scripts streamlit + data exogenes">
+      <option name="closed" value="true" />
+      <created>1746099625812</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746099625812</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Notebooks et prédictions MAJ" />
     <MESSAGE value="Notebooks et prédictions MAJ + ajout actuals" />
     <MESSAGE value="MAJ des prédictions" />
-    <option name="LAST_COMMIT_MESSAGE" value="MAJ des prédictions" />
+    <MESSAGE value="MAJ scripts streamlit + data exogenes" />
+    <option name="LAST_COMMIT_MESSAGE" value="MAJ scripts streamlit + data exogenes" />
   </component>
 </project>
