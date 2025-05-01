@@ -151,9 +151,12 @@ start_date_options = {
     "2014-01-01": pd.Timestamp("2014-01-01"),
     "2015-01-01": pd.Timestamp("2015-01-01"),
 }
-selected_start_label = st.selectbox("Date de début :", list(start_date_options.keys()))
-start_date = start_date_options[selected_start_label]
 
+start_date_labels = list(start_date_options.keys())
+default_index = start_date_labels.index("2015-01-01")
+
+selected_start_label = st.selectbox("Date de début :", start_date_labels, index=default_index)
+start_date = start_date_options[selected_start_label]
 
 # Sélection du magasin
 
