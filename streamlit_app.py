@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-import numpy as np
-import os
+# import matplotlib.pyplot as plt
+# import seaborn as sns
+# from sklearn.metrics import mean_absolute_error, mean_squared_error
+# import numpy as np
+# import os
 
 # -------------------------------
 # Titre et introduction
