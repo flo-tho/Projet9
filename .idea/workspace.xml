@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d4c8aee6-ec74-4d68-b9c2-6c6426412405" name="Changes" comment="Notebooks et prédictions MAJ">
+    <list default="true" id="d4c8aee6-ec74-4d68-b9c2-6c6426412405" name="Changes" comment="MAJ des prédictions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/P9_Modelisation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/P9_Modelisation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prévisions/etsformer_predictions.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prévisions/holt_winters_predictions.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prévisions/lgbm_exog_preds.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prévisions/lgbm_preds.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prévisions/naive_predictions.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prévisions/ses_predictions.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previsions/naive_predictions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/previsions/naive_predictions.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/previsions/ses_predictions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/previsions/ses_predictions.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/streamlit_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/streamlit_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,11 +82,21 @@
       <option name="project" value="LOCAL" />
       <updated>1746029006804</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Notebooks et prédictions MAJ + ajout actuals">
+      <option name="closed" value="true" />
+      <created>1746086861537</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746086861537</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Notebooks et prédictions MAJ" />
-    <option name="LAST_COMMIT_MESSAGE" value="Notebooks et prédictions MAJ" />
+    <MESSAGE value="Notebooks et prédictions MAJ + ajout actuals" />
+    <MESSAGE value="MAJ des prédictions" />
+    <option name="LAST_COMMIT_MESSAGE" value="MAJ des prédictions" />
   </component>
 </project>
